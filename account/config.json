@@ -1,0 +1,164 @@
+{
+    "bf_role" : [
+        "DBA",
+        "ADVDATAENGINEER",
+        "DATAENGINEER",
+        "ADVANALYST",
+        "ANALYST",
+        "INSIGHT_ANALYST",
+        "REPORT_ANALYST",
+        "ETL",
+        "ETL_DEV",
+        "ETL_UAT",
+        "ETL_QA",
+        "ETL_PROD",
+        "SUPPORT",
+        "ATLAN_USER_ROLE",
+        "POWERBI_SERVICE",
+        "POWERBI_SERVICE_DEV",
+        "POWERBI_SERVICE_QA",
+        "POWERBI_SERVICE_PROD",
+        "DATA_LOADER",
+        "DATADOG",
+        "HIGHTOUCH_USER_ROLE",
+        "SELECT_USER_ROLE"
+    ],
+
+    "bf_role_grants" : {
+        "SYSADMIN" : ["DBA", "ADVANALYST", "ATLAN_USER_ROLE", "SELECT_USER_ROLE"],
+        "DBA" : ["ADVDATAENGINEER", "ETL", "SUPPORT", "POWERBI_SERVICE", "DATA_LOADER", "HIGHTOUCH_USER_ROLE"],
+        "ADVDATAENGINEER" : ["DATAENGINEER"],
+        "ADVANALYST" : ["ANALYST"],
+        "ANALYST" : ["INSIGHT_ANALYST", "REPORT_ANALYST"],
+        "ETL" : ["ETL_DEV", "ETL_UAT", "ETL_QA", "ETL_PROD"],
+        "POWERBI_SERVICE" : ["POWERBI_SERVICE_DEV", "POWERBI_SERVICE_QA", "POWERBI_SERVICE_PROD"]
+    },
+
+    "account_object_grants_bf_role" : {
+        "EXECUTE TASK" : ["DBA", "ANALYST", "DATAENGINEER"],
+        "MANAGE GRANTS" : ["DBA", "USERADMIN", "SUPPORT"],
+        "MONITOR USAGE" : ["SELECT_USER_ROLE"],
+        "MANAGE WAREHOUSES" : ["SELECT_USER_ROLE"],
+        "CREATE USER" : ["SUPPORT"],
+        "CREATE DATABASE" : ["DBA"],
+        "CREATE WAREHOUSE" : ["DBA"]
+    },
+
+    "db_object_grants_bf_role" : {
+        "IMPORTED PRIVILEGES" : [["DATADOG", "SELECT_USER_ROLE"], ["SNOWFLAKE"]]
+    },
+
+    "warehouse" : {
+        "COMPUTE_WH"                             : ["xsmall", 1, 1, 30, "true", "true"],
+        "ETL_WH"                                 : ["xsmall", 1, 1, 30, "true", "true"]
+        
+    },
+
+    "of_warehouse_privilege_role" : [
+        "USAGE", 
+        "OPERATE", 
+        "MONITOR"
+    ],
+
+    "warehouse_of_role_bf_role_hierarchy" : {
+        "COMPUTE_WH" : {
+            "USAGE" : ["DATAENGINEER", "ETL_DEV", "SUPPORT"]
+        },
+        "ETL_WH" : {
+            "USAGE" : ["DATAENGINEER", "ETL_QA", "SUPPORT"]
+        }
+    },
+
+    "db_privilege_role_grants" : {
+        "USAGE" : {
+            "DATABASE" : ["USAGE"],
+            "SCHEMA" : ["USAGE", "USAGE:ALL SEQUENCES", "USAGE:FUTURE SEQUENCES"]
+        },
+        "READ" : {
+            "SCHEMA" : ["SELECT:ALL TABLES", "SELECT:FUTURE TABLES", "SELECT:ALL VIEWS", "SELECT:FUTURE VIEWS"]
+        },
+        "UPDATE" : {
+            "SCHEMA" : ["INSERT-UPDATE-DELETE-TRUNCATE:ALL TABLES", "INSERT-UPDATE-DELETE-TRUNCATE:FUTURE TABLES"]
+        },
+        "CREATE" : {
+            "SCHEMA" : ["CREATE TABLE", "CREATE VIEW"]
+        },
+        "CREATE_EXTERNAL" : {
+            "SCHEMA" : ["CREATE EXTERNAL TABLE"]
+        },
+        "STAGE_CREATE" : {
+            "SCHEMA" : ["CREATE STAGE"]
+        },
+        "STAGE_USAGE" : {
+            "SCHEMA" : ["USAGE:ALL STAGES", "USAGE:FUTURE STAGES", "USAGE:ALL FILE FORMATS", "USAGE:FUTURE FILE FORMATS"]
+        },
+        "STREAM_SELECT" : {
+            "SCHEMA" : ["SELECT:ALL STREAMS", "SELECT:FUTURE STREAMS"]
+        },
+        "AUTOMATION_CREATE" : {
+            "SCHEMA" : ["CREATE TASK", "CREATE PROCEDURE", "CREATE FUNCTION", "CREATE STREAMLIT", "CREATE STAGE"]
+        },
+        "AUTOMATION_USAGE" : {
+            "SCHEMA" : ["OPERATE:ALL TASKS", "OPERATE:FUTURE TASKS", "USAGE:ALL FUNCTIONS", "USAGE:FUTURE FUNCTIONS", "USAGE:ALL PROCEDURES", "USAGE:FUTURE PROCEDURES"]
+        }
+    },
+
+    "db_config" : {
+        "ADMIN" : {
+            "AUDIT" : {
+                "DATAENGINEER" : ["USAGE", "READ", "UPDATE", "CREATE", "AUTOMATION_CREATE", "AUTOMATION_USAGE"],
+                "ETL_DEV" : ["USAGE", "READ", "UPDATE"],
+                "ETL_QA" : ["USAGE", "READ", "UPDATE"],
+                "ETL_PROD" : ["USAGE", "READ", "UPDATE"],
+                "SUPPORT" : ["USAGE", "READ"],
+                "ATLAN_USER_ROLE" : ["USAGE", "READ"],
+                "DATA_LOADER" : ["USAGE", "READ"]
+            },
+            "CONFIG" : {
+                "DATAENGINEER" : ["USAGE", "READ", "AUTOMATION_CREATE", "AUTOMATION_USAGE"],
+                "ADVDATAENGINEER" : ["UPDATE", "CREATE"],
+                "ETL_DEV" : ["USAGE", "READ"],
+                "ETL_QA" : ["USAGE", "READ"],
+                "ETL_PROD" : ["USAGE", "READ","CREATE"]
+            },
+            "WORKING" : {
+                "DATAENGINEER" : ["USAGE", "READ", "UPDATE", "CREATE"],
+                "ETL_DEV" : ["USAGE", "READ", "UPDATE", "CREATE"],
+                "ETL_QA" : ["USAGE", "READ", "UPDATE", "CREATE"],
+                "ETL_PROD" : ["USAGE", "READ", "UPDATE", "CREATE"],
+                "SUPPORT" : ["USAGE", "READ"],
+                "ATLAN_USER_ROLE" : ["USAGE", "READ"]
+            }
+        },
+        "DEV_ADMIN" : {
+            "AUDIT" : {
+                "DATAENGINEER" : ["USAGE", "READ", "UPDATE", "CREATE", "AUTOMATION_CREATE", "AUTOMATION_USAGE"],
+                "ETL_DEV" : ["USAGE", "READ", "UPDATE"],
+                "ETL_QA" : ["USAGE", "READ", "UPDATE"],
+                "ETL_PROD" : ["USAGE", "READ", "UPDATE"],
+                "SUPPORT" : ["USAGE", "READ"],
+                "ATLAN_USER_ROLE" : ["USAGE", "READ"],
+                "DATA_LOADER" : ["USAGE", "READ"]
+            },
+            "CONFIG" : {
+                "DATAENGINEER" : ["USAGE", "READ", "AUTOMATION_CREATE", "AUTOMATION_USAGE"],
+                "ADVDATAENGINEER" : ["UPDATE", "CREATE"],
+                "ETL_DEV" : ["USAGE", "READ"],
+                "ETL_QA" : ["USAGE", "READ"],
+                "ETL_PROD" : ["USAGE", "READ"],
+                "SUPPORT" : ["USAGE", "READ"],
+                "ATLAN_USER_ROLE" : ["USAGE", "READ"]
+            },
+            "WORKING" : {
+                "DATAENGINEER" : ["USAGE", "READ", "UPDATE", "CREATE"],
+                "ETL_DEV" : ["USAGE", "READ", "UPDATE", "CREATE"],
+                "ETL_QA" : ["USAGE", "READ", "UPDATE", "CREATE"],
+                "ETL_PROD" : ["USAGE", "READ", "UPDATE", "CREATE"],
+                "SUPPORT" : ["USAGE", "READ"],
+                "ATLAN_USER_ROLE" : ["USAGE", "READ"]
+            }
+        }
+    }
+}
+
+

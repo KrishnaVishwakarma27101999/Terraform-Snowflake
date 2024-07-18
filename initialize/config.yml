@@ -1,0 +1,18 @@
+# SNOWFLAKE CRED
+aws_secret: "arn:aws:secretsmanager:eu-west-2:XXXXXXXXXXX:secret:terraform_snowflake-secrets"
+
+# bucket:
+#   name: "terraform-tfstate-dummy-snowflake"
+#   file_path: "state/terraform.tfstate"
+#   region: "ap-south-1"
+
+# TOP LEVEL ROLE
+accountadmin: "ACCOUNTADMIN"
+useradmin: "USERADMIN"
+securityadmin: "SECURITYADMIN"
+sysadmin: "SYSADMIN"
+
+# BUSINESS FUNCTION ROLE
+dba: "DBA"
+
+
